@@ -1,0 +1,5 @@
+{
+  "description": "Tailwind CSS utility layout and design tokens",
+  "globs": ["**/*.tsx", "**/*.jsx", "**/*.vue", "**/*.html"],
+  "alwaysApply": false
+}

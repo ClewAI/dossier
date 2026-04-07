@@ -1,0 +1,5 @@
+{
+  "description": "Django models, views, and project layout",
+  "globs": ["**/*.py"],
+  "alwaysApply": false
+}

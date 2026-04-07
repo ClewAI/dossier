@@ -1,0 +1,5 @@
+{
+  "description": "React components, hooks, and accessibility",
+  "globs": ["**/*.tsx", "**/*.jsx"],
+  "alwaysApply": false
+}

@@ -1,0 +1,5 @@
+{
+  "description": "Vitest unit and integration tests",
+  "globs": ["**/*.test.ts", "**/*.spec.ts", "**/*.test.tsx", "vitest.config.*"],
+  "alwaysApply": false
+}

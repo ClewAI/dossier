@@ -1,0 +1,5 @@
+{
+  "description": "FastAPI routes, dependencies, and Pydantic models",
+  "globs": ["**/*.py"],
+  "alwaysApply": false
+}

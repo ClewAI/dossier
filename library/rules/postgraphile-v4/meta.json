@@ -1,0 +1,5 @@
+{
+  "description": "PostGraphile v4 GraphQL API patterns",
+  "globs": ["**/*.ts", "**/*.js", "**/*.sql"],
+  "alwaysApply": false
+}

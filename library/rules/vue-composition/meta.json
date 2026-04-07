@@ -1,0 +1,5 @@
+{
+  "description": "Vue 3 Composition API and SFC conventions",
+  "globs": ["**/*.vue", "**/*.ts"],
+  "alwaysApply": false
+}

@@ -1,0 +1,157 @@
+{
+  "version": 1,
+  "entries": {
+    "repo-hygiene": {
+      "type": "rule",
+      "tags": { "languages": [], "frameworks": [] }
+    },
+    "repo-hygiene-skill": {
+      "type": "skill",
+      "tags": { "languages": [], "frameworks": [] }
+    },
+    "security-basics": {
+      "type": "rule",
+      "tags": { "languages": [], "frameworks": [] }
+    },
+    "security-basics-skill": {
+      "type": "skill",
+      "tags": { "languages": [], "frameworks": [] }
+    },
+    "testing-discipline": {
+      "type": "rule",
+      "tags": { "languages": [], "frameworks": [] }
+    },
+    "testing-discipline-skill": {
+      "type": "skill",
+      "tags": { "languages": [], "frameworks": [] }
+    },
+    "documentation": {
+      "type": "rule",
+      "tags": { "languages": [], "frameworks": [] }
+    },
+    "documentation-skill": {
+      "type": "skill",
+      "tags": { "languages": [], "frameworks": [] }
+    },
+    "typescript-strict": {
+      "type": "rule",
+      "tags": { "languages": ["typescript"], "frameworks": [] }
+    },
+    "typescript-strict-skill": {
+      "type": "skill",
+      "tags": { "languages": ["typescript"], "frameworks": [] }
+    },
+    "javascript-modules": {
+      "type": "rule",
+      "tags": { "languages": ["javascript"], "frameworks": [] }
+    },
+    "javascript-modules-skill": {
+      "type": "skill",
+      "tags": { "languages": ["javascript"], "frameworks": [] }
+    },
+    "react-patterns": {
+      "type": "rule",
+      "tags": { "languages": [], "frameworks": ["react"] }
+    },
+    "react-patterns-skill": {
+      "type": "skill",
+      "tags": { "languages": [], "frameworks": ["react"] }
+    },
+    "nextjs-app-router": {
+      "type": "rule",
+      "tags": { "languages": [], "frameworks": ["nextjs"] }
+    },
+    "nextjs-app-router-skill": {
+      "type": "skill",
+      "tags": { "languages": [], "frameworks": ["nextjs"] }
+    },
+    "vue-composition": {
+      "type": "rule",
+      "tags": { "languages": [], "frameworks": ["vue"] }
+    },
+    "vue-composition-skill": {
+      "type": "skill",
+      "tags": { "languages": [], "frameworks": ["vue"] }
+    },
+    "tailwind-conventions": {
+      "type": "rule",
+      "tags": { "languages": [], "frameworks": ["tailwind"] }
+    },
+    "tailwind-conventions-skill": {
+      "type": "skill",
+      "tags": { "languages": [], "frameworks": ["tailwind"] }
+    },
+    "python-modern": {
+      "type": "rule",
+      "tags": { "languages": ["python"], "frameworks": [] }
+    },
+    "python-modern-skill": {
+      "type": "skill",
+      "tags": { "languages": ["python"], "frameworks": [] }
+    },
+    "fastapi-patterns": {
+      "type": "rule",
+      "tags": { "languages": [], "frameworks": ["fastapi"] }
+    },
+    "fastapi-patterns-skill": {
+      "type": "skill",
+      "tags": { "languages": [], "frameworks": ["fastapi"] }
+    },
+    "django-patterns": {
+      "type": "rule",
+      "tags": { "languages": [], "frameworks": ["django"] }
+    },
+    "django-patterns-skill": {
+      "type": "skill",
+      "tags": { "languages": [], "frameworks": ["django"] }
+    },
+    "postgraphile-v4": {
+      "type": "rule",
+      "tags": { "languages": [], "frameworks": ["postgraphile"] }
+    },
+    "postgraphile-v4-skill": {
+      "type": "skill",
+      "tags": { "languages": [], "frameworks": ["postgraphile"] }
+    },
+    "vitest-testing": {
+      "type": "rule",
+      "tags": { "languages": [], "frameworks": ["vitest"] }
+    },
+    "vitest-testing-skill": {
+      "type": "skill",
+      "tags": { "languages": [], "frameworks": ["vitest"] }
+    },
+    "jest-testing": {
+      "type": "rule",
+      "tags": { "languages": [], "frameworks": ["jest"] }
+    },
+    "jest-testing-skill": {
+      "type": "skill",
+      "tags": { "languages": [], "frameworks": ["jest"] }
+    },
+    "eslint-prettier": {
+      "type": "rule",
+      "tags": { "languages": [], "frameworks": ["eslint_prettier"] }
+    },
+    "eslint-prettier-skill": {
+      "type": "skill",
+      "tags": { "languages": [], "frameworks": ["eslint_prettier"] }
+    },
+    "docker-basics": {
+      "type": "rule",
+      "tags": { "languages": [], "frameworks": ["docker"] }
+    },
+    "docker-basics-skill": {
+      "type": "skill",
+      "tags": { "languages": [], "frameworks": ["docker"] }
+    },
+    "github-actions-ci": {
+      "type": "rule",
+      "tags": { "languages": [], "frameworks": ["ci_github_actions"] }
+    },
+    "github-actions-ci-skill": {
+      "type": "skill",
+      "tags": { "languages": [], "frameworks": ["ci_github_actions"] }
+    }
+  }
+}

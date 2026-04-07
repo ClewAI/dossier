@@ -1,0 +1,5 @@
+{
+  "description": "Docker images and compose practices",
+  "globs": ["**/Dockerfile*", "**/docker-compose*.yml", "**/compose*.yaml"],
+  "alwaysApply": false
+}

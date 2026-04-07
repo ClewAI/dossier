@@ -1,0 +1,5 @@
+{
+  "description": "Basic security posture for application code",
+  "globs": [],
+  "alwaysApply": true
+}

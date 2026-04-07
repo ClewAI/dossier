@@ -1,0 +1,5 @@
+{
+  "description": "Jest unit and integration tests",
+  "globs": ["**/*.test.js", "**/*.spec.js", "**/*.test.ts", "jest.config.*"],
+  "alwaysApply": false
+}

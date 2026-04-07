@@ -1,0 +1,5 @@
+{
+  "description": "TypeScript strictness and module hygiene",
+  "globs": ["**/*.ts", "**/*.tsx", "**/*.mts", "**/*.cts"],
+  "alwaysApply": false
+}

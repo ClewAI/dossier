@@ -1,0 +1,5 @@
+{
+  "description": "Modern Python style, typing, and packaging",
+  "globs": ["**/*.py"],
+  "alwaysApply": false
+}

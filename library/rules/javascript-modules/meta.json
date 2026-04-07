@@ -1,0 +1,5 @@
+{
+  "description": "Modern JavaScript modules and runtime-safe patterns",
+  "globs": ["**/*.js", "**/*.mjs", "**/*.cjs"],
+  "alwaysApply": false
+}

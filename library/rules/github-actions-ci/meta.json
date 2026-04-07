@@ -1,0 +1,5 @@
+{
+  "description": "GitHub Actions workflows",
+  "globs": [".github/workflows/**/*.yml", ".github/workflows/**/*.yaml"],
+  "alwaysApply": false
+}
