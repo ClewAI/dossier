@@ -1,0 +1,56 @@
+{
+  "name": "@clew-ai/dossier",
+  "version": "0.1.0",
+  "description": "CLI to make repositories AI-ready with agent-agnostic config and multi-agent generation",
+  "type": "module",
+  "bin": {
+    "dossier": "./dist/cli.js"
+  },
+  "main": "./dist/main.js",
+  "types": "./dist/main.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/main.d.ts",
+      "import": "./dist/main.js"
+    }
+  },
+  "files": [
+    "dist",
+    "library"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsx src/cli.ts",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "prepublishOnly": "npm run build"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "commander": "^14.0.0",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "vitest": "^3.0.5",
+    "tsup": "^8.3.5",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/clew-ai/dossier.git"
+  },
+  "keywords": [
+    "cli",
+    "cursor",
+    "claude",
+    "copilot",
+    "ai",
+    "agents"
+  ]
+}
