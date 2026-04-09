@@ -137,6 +137,7 @@ export async function runInit(cwd: string): Promise<void> {
         lang,
         frameworks,
         customRules: [],
+        remoteSkills: [],
       },
     },
   };
@@ -159,5 +160,8 @@ export async function runInit(cwd: string): Promise<void> {
   console.log(`Wrote ${configPath}`);
   console.log(
     'Run `dossier generate <cursor|claude|copilot|codex>` to emit agent-specific files.',
+  );
+  console.log(
+    'Remote Agent Skills catalogs (searchable repos): .dossier/library/agent-skills-repositories.json',
   );
 }

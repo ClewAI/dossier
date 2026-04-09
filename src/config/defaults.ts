@@ -10,6 +10,7 @@ export function defaultConfiguration(): Configuration {
         lang: 'typescript',
         frameworks: [],
         customRules: [],
+        remoteSkills: [],
       },
     },
     customRules: [],

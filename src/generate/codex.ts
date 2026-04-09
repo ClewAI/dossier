@@ -12,8 +12,8 @@ import {
   agentsMdPreamble,
 } from './agents-md.js';
 import { readManifest } from '../library/manifest.js';
-import { collectRuleIds, collectSkillIds } from '../library/presets.js';
-import { readRuleParts, readSkillContent } from '../library/load-assets.js';
+import { collectAllSkillIds, collectRuleIds } from '../library/presets.js';
+import { readRuleParts, readSkillContentForGenerate } from '../library/load-assets.js';
 import { isRootDirectoryKey, manifestIdToSafeFilename } from './shared.js';
 import { customRuleToText, mergeInstructionBodies } from './merge-rules.js';
 
@@ -54,7 +54,7 @@ export function generateCodex(
 ): void {
   const manifest = readManifest(libraryRoot);
   const ruleIds = collectRuleIds(manifest, config);
-  const skillIds = collectSkillIds(manifest, config);
+  const skillIds = collectAllSkillIds(manifest, config);
 
   const sections: string[] = [
     ...agentsMdPreamble(config),
@@ -78,7 +78,7 @@ export function generateCodex(
   const skillsRoot = path.join(cwd, '.agents', 'skills');
 
   for (const id of skillIds) {
-    const content = readSkillContent(libraryRoot, id);
+    const content = readSkillContentForGenerate(cwd, libraryRoot, id);
     const dirName = manifestIdToSafeFilename(id);
     const skillDir = path.join(skillsRoot, dirName);
     fs.mkdirSync(skillDir, { recursive: true });

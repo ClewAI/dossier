@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "description": "Curated GitHub repositories that host Open Agent Skills (https://agentskills.io/specification). Init and agents can use this list to suggest remoteSkills entries in .dossier/config.json.",
+  "repositories": [
+    {
+      "id": "anthropics-skills",
+      "displayName": "Anthropic skills",
+      "description": "Official example skills; each subdirectory under skills/ follows the Agent Skills layout (SKILL.md plus optional scripts/, references/, assets/).",
+      "github": "https://github.com/anthropics/skills",
+      "defaultRef": "main",
+      "pathPrefix": "skills"
+    }
+  ]
+}

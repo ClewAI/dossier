@@ -34,6 +34,7 @@ describe('readConfiguration / writeConfiguration', () => {
           lang: 'typescript',
           frameworks: ['react'],
           customRules: ['Stay consistent with hooks.'],
+          remoteSkills: [],
         },
       },
       customRules: [],

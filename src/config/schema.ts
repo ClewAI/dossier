@@ -45,10 +45,30 @@ const CustomRuleObjectSchema = z.object({
 export const CustomRuleSchema = z.union([z.string(), CustomRuleObjectSchema]);
 export type CustomRule = z.infer<typeof CustomRuleSchema>;
 
+/**
+ * Pull Agent Skills from a public GitHub repository at generate time
+ * (see https://agentskills.io/specification).
+ */
+export const RemoteSkillsSourceSchema = z.object({
+  /** Repository URL (`https://github.com/org/repo`) or `org/repo`. */
+  github: z.string().min(1),
+  /** Git branch or tag; omitted uses the repo default branch. */
+  ref: z.string().min(1).optional(),
+  /** Skill directory names relative to `pathPrefix` (each folder should contain `SKILL.md`). */
+  skills: z.array(z.string().min(1)).min(1),
+  /**
+   * Path inside the repo to the parent of per-skill folders. Use `skills` for layouts like
+   * `anthropics/skills` (`skills/<name>/SKILL.md`). Empty string means each skill is a top-level directory.
+   */
+  pathPrefix: z.string().default(''),
+});
+export type RemoteSkillsSource = z.infer<typeof RemoteSkillsSourceSchema>;
+
 export const DirectoryConfigSchema = z.object({
   lang: LanguageSchema,
   frameworks: z.array(FrameworkSchema).default([]),
   customRules: z.array(CustomRuleSchema).default([]),
+  remoteSkills: z.array(RemoteSkillsSourceSchema).default([]),
 });
 export type DirectoryConfig = z.infer<typeof DirectoryConfigSchema>;
 

@@ -20,6 +20,28 @@ describe('ConfigurationSchema', () => {
     expect(r.data.schemaVersion).toBe(1);
     expect(r.data.hooks).toEqual([]);
     expect(r.data.customRules).toEqual([]);
+    expect(r.data.directories[''].remoteSkills).toEqual([]);
+  });
+
+  it('accepts remoteSkills on a directory', () => {
+    const r = safeParseConfiguration({
+      ...minimalValid,
+      directories: {
+        '': {
+          lang: 'typescript',
+          frameworks: [],
+          customRules: [],
+          remoteSkills: [
+            {
+              github: 'anthropics/skills',
+              skills: ['brand-guidelines'],
+              pathPrefix: 'skills',
+            },
+          ],
+        },
+      },
+    });
+    expect(r.success).toBe(true);
   });
 
   it('accepts hooks with normalized events', () => {

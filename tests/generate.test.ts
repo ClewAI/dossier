@@ -18,6 +18,7 @@ describe('generate', () => {
         lang: 'typescript',
         frameworks: ['react'],
         customRules: [{ rule: 'Prefer hooks over HOCs.', applyTo: '*.tsx' }],
+        remoteSkills: [],
       },
     },
     customRules: ['One custom global note.'],
@@ -32,9 +33,9 @@ describe('generate', () => {
     fs.rmSync(tmp, { recursive: true, force: true });
   });
 
-  it('writes Cursor rules, hooks, and AGENTS.md', () => {
+  it('writes Cursor rules, hooks, and AGENTS.md', async () => {
     writeConfiguration(tmp, baseConfig);
-    generate(tmp, baseConfig, 'cursor');
+    await generate(tmp, baseConfig, 'cursor');
 
     const rulesDir = path.join(tmp, '.cursor', 'rules');
     expect(fs.existsSync(path.join(rulesDir, 'react-patterns.mdc'))).toBe(true);
@@ -52,9 +53,9 @@ describe('generate', () => {
     );
   });
 
-  it('writes Claude skills and merges hooks into settings.json', () => {
+  it('writes Claude skills and merges hooks into settings.json', async () => {
     writeConfiguration(tmp, baseConfig);
-    generate(tmp, baseConfig, 'claude');
+    await generate(tmp, baseConfig, 'claude');
 
     expect(
       fs.existsSync(
@@ -68,9 +69,9 @@ describe('generate', () => {
     expect(settings.hooks.PostToolUse?.length).toBeGreaterThan(0);
   });
 
-  it('writes Copilot instructions without hooks files', () => {
+  it('writes Copilot instructions without hooks files', async () => {
     writeConfiguration(tmp, baseConfig);
-    generate(tmp, baseConfig, 'copilot');
+    await generate(tmp, baseConfig, 'copilot');
 
     expect(
       fs.existsSync(path.join(tmp, '.github', 'copilot-instructions.md')),
@@ -78,9 +79,9 @@ describe('generate', () => {
     expect(fs.existsSync(path.join(tmp, '.cursor', 'hooks.json'))).toBe(false);
   });
 
-  it('writes Codex-oriented AGENTS.md with library rules and skips default thin AGENTS overwrite', () => {
+  it('writes Codex-oriented AGENTS.md with library rules and skips default thin AGENTS overwrite', async () => {
     writeConfiguration(tmp, baseConfig);
-    generate(tmp, baseConfig, 'codex');
+    await generate(tmp, baseConfig, 'codex');
 
     const agentsMd = fs.readFileSync(path.join(tmp, 'AGENTS.md'), 'utf8');
     expect(agentsMd).toContain('Bundled library rules');
@@ -91,9 +92,9 @@ describe('generate', () => {
     );
   });
 
-  it('writes Codex .agents/skills and .codex/hooks.json when hooks apply', () => {
+  it('writes Codex .agents/skills and .codex/hooks.json when hooks apply', async () => {
     writeConfiguration(tmp, baseConfig);
-    generate(tmp, baseConfig, 'codex');
+    await generate(tmp, baseConfig, 'codex');
 
     expect(
       fs.existsSync(
@@ -107,4 +108,43 @@ describe('generate', () => {
     };
     expect(hooks.hooks.PostToolUse?.[0].matcher).toBe('Edit|Write');
   });
+
+  it(
+    'syncs remoteSkills from GitHub into .dossier/library and Claude output',
+    async () => {
+      const cfg: Configuration = {
+        ...baseConfig,
+        directories: {
+          '': {
+            ...baseConfig.directories[''],
+            remoteSkills: [
+              {
+                github: 'https://github.com/anthropics/skills',
+                skills: ['brand-guidelines'],
+                pathPrefix: 'skills',
+              },
+            ],
+          },
+        },
+      };
+      writeConfiguration(tmp, cfg);
+      await generate(tmp, cfg, 'claude');
+      const localId = 'remote-anthropics-skills-skills-brand-guidelines';
+      expect(
+        fs.existsSync(
+          path.join(tmp, '.dossier', 'library', 'skills', localId, 'SKILL.md'),
+        ),
+      ).toBe(true);
+      const claudeSkill = path.join(
+        tmp,
+        '.claude',
+        'skills',
+        localId,
+        'SKILL.md',
+      );
+      expect(fs.existsSync(claudeSkill)).toBe(true);
+      expect(fs.readFileSync(claudeSkill, 'utf8')).toMatch(/skill|brand/i);
+    },
+    30_000,
+  );
 });

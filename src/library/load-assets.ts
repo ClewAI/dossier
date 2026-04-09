@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { z } from 'zod';
+import { getProjectLibraryDir } from '../paths.js';
 
 const RuleMetaSchema = z.object({
   description: z.string(),
@@ -32,6 +33,24 @@ export function readRuleParts(
 export function readSkillContent(libraryRoot: string, id: string): string {
   const p = path.join(libraryRoot, 'skills', id, 'SKILL.md');
   return fs.readFileSync(p, 'utf8');
+}
+
+/** Resolves bundled or synced skills, including `.dossier/library/skills/remote-*` after a remote sync. */
+export function readSkillContentForGenerate(
+  cwd: string,
+  libraryRoot: string,
+  id: string,
+): string {
+  const candidates = [
+    path.join(libraryRoot, 'skills', id, 'SKILL.md'),
+    path.join(getProjectLibraryDir(cwd), 'skills', id, 'SKILL.md'),
+  ];
+  for (const p of candidates) {
+    if (fs.existsSync(p)) return fs.readFileSync(p, 'utf8');
+  }
+  throw new Error(
+    `Skill "${id}" not found (expected SKILL.md under library skills for this id)`,
+  );
 }
 
 export function ruleToMdc(meta: RuleMeta, body: string): string {

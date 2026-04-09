@@ -61,7 +61,7 @@ program
   .description('Generate agent-specific config from .dossier/config.json')
   .argument('<agent>', 'cursor | claude | copilot | codex')
   .option('-C, --cwd <dir>', 'Working directory', process.cwd())
-  .action((agent: string, opts: { cwd: string }) => {
+  .action(async (agent: string, opts: { cwd: string }) => {
     const cwd = path.resolve(opts.cwd);
     const a = agent.toLowerCase();
     if (!isGenerateTarget(a)) {
@@ -70,7 +70,7 @@ program
       return;
     }
     const config = readConfiguration(cwd);
-    generate(cwd, config, a);
+    await generate(cwd, config, a);
     console.log(`Generated ${a} outputs in ${cwd}`);
   });
 

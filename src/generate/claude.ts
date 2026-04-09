@@ -6,8 +6,8 @@ import {
   type ClaudeHooksBlock,
 } from '../hooks/mapping.js';
 import { readManifest } from '../library/manifest.js';
-import { collectSkillIds } from '../library/presets.js';
-import { readSkillContent } from '../library/load-assets.js';
+import { collectAllSkillIds } from '../library/presets.js';
+import { readSkillContentForGenerate } from '../library/load-assets.js';
 import { isRootDirectoryKey, manifestIdToSafeFilename } from './shared.js';
 import { customRuleToText, mergeInstructionBodies } from './merge-rules.js';
 
@@ -56,13 +56,13 @@ export function generateClaude(
   libraryRoot: string,
 ): void {
   const manifest = readManifest(libraryRoot);
-  const skillIds = collectSkillIds(manifest, config);
+  const skillIds = collectAllSkillIds(manifest, config);
 
   const skillsRoot = path.join(cwd, '.claude', 'skills');
   fs.mkdirSync(skillsRoot, { recursive: true });
 
   for (const id of skillIds) {
-    const content = readSkillContent(libraryRoot, id);
+    const content = readSkillContentForGenerate(cwd, libraryRoot, id);
     const dirName = manifestIdToSafeFilename(id);
     const skillDir = path.join(skillsRoot, dirName);
     fs.mkdirSync(skillDir, { recursive: true });

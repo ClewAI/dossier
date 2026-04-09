@@ -3,6 +3,7 @@ import path from 'node:path';
 import type { Configuration } from '../config/schema.js';
 import type { GenerateTarget } from '../constants.js';
 import { resolveLibraryRoot } from '../paths.js';
+import { syncRemoteSkillsToProjectLibrary } from '../library/remote-skills.js';
 import { generateCursor } from './cursor.js';
 import { generateClaude } from './claude.js';
 import { generateCopilot } from './copilot.js';
@@ -12,12 +13,13 @@ import { buildAgentsMd } from './agents-md.js';
 export type { GenerateTarget } from '../constants.js';
 export { GENERATE_TARGETS, isGenerateTarget } from '../constants.js';
 
-export function generate(
+export async function generate(
   cwd: string,
   config: Configuration,
   target: GenerateTarget,
-): void {
+): Promise<void> {
   const libraryRoot = resolveLibraryRoot(cwd);
+  await syncRemoteSkillsToProjectLibrary(cwd, config);
   switch (target) {
     case 'cursor':
       generateCursor(cwd, config, libraryRoot);

@@ -23,6 +23,7 @@ describe('resolveEntryIdsForDirectory', () => {
       lang: 'python',
       frameworks: [],
       customRules: [],
+      remoteSkills: [],
     });
     expect(rules).toContain('repo-hygiene');
     expect(rules).toContain('security-basics');
@@ -33,6 +34,7 @@ describe('resolveEntryIdsForDirectory', () => {
       lang: 'typescript',
       frameworks: [],
       customRules: [],
+      remoteSkills: [],
     });
     expect(rules).toContain('typescript-strict');
   });
@@ -42,6 +44,7 @@ describe('resolveEntryIdsForDirectory', () => {
       lang: 'typescript',
       frameworks: ['react'],
       customRules: [],
+      remoteSkills: [],
     });
     expect(rules).toContain('react-patterns');
   });
@@ -51,6 +54,7 @@ describe('resolveEntryIdsForDirectory', () => {
       lang: 'python',
       frameworks: [],
       customRules: [],
+      remoteSkills: [],
     });
     expect(rules).not.toContain('react-patterns');
   });
