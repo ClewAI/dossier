@@ -5,8 +5,10 @@
 ## Installation
 
 ```bash
-npm install -g @clew-ai/dossier
+yarn global add @clew-ai/dossier
 ```
+
+You can also install globally with npm: `npm install -g @clew-ai/dossier`.
 
 ## Usage
 
@@ -44,6 +46,10 @@ dossier generate copilot
 ## Library
 
 If you are not interested in adding another dependency, already know which agent you will stick with, have no need for the update functionality or only have small project, you might be interested in browsing the [`library/`](./library/) directory. It contains rules and skills for various languages and scenarios.
+
+## Publishing
+
+Maintainers: releases are published to [npmjs.com](https://www.npmjs.com/package/@clew-ai/dossier) via GitHub Actions when a **GitHub Release** is published. Local checks use `yarn ci`. Full steps, `NPM_TOKEN` setup, tarball contents, and manual fallback are documented in [`docs/Publishing.md`](./docs/Publishing.md).
 
 ## About Us (small advertisement)
 
