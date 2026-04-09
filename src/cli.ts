@@ -59,13 +59,13 @@ program
 program
   .command('generate')
   .description('Generate agent-specific config from .dossier/config.json')
-  .argument('<agent>', 'cursor | claude | copilot')
+  .argument('<agent>', 'cursor | claude | copilot | codex')
   .option('-C, --cwd <dir>', 'Working directory', process.cwd())
   .action((agent: string, opts: { cwd: string }) => {
     const cwd = path.resolve(opts.cwd);
     const a = agent.toLowerCase();
     if (!isGenerateTarget(a)) {
-      console.error('Agent must be one of: cursor, claude, copilot');
+      console.error('Agent must be one of: cursor, claude, copilot, codex');
       process.exitCode = 1;
       return;
     }

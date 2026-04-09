@@ -18,7 +18,7 @@ order: 0
 
 1. **Guided setup** — Walks you through language, frameworks, and which agents to enable. That is especially useful if you are new to coding agents or want to try one you have not configured yet.
 
-2. **Single source of truth** — Writes an agent-agnostic layer under `.dossier/` (mainly `config.json` and a synced copy of the bundled rule/skill library). From that, you run `dossier generate` to emit Cursor, Claude Code, and GitHub Copilot–specific files so you do not have to maintain the same guidance in three places by hand. (You do add one more project directory — `.dossier/` — in exchange.)
+2. **Single source of truth** — Writes an agent-agnostic layer under `.dossier/` (mainly `config.json` and a synced copy of the bundled rule/skill library). From that, you run `dossier generate` to emit Cursor, Claude Code, GitHub Copilot, and OpenAI Codex–specific files so you do not have to maintain the same guidance in several places by hand. (You do add one more project directory — `.dossier/` — in exchange.)
 
 `dossier` is free and open source. You are welcome to contribute or explore the [repository on GitHub](https://github.com/clew-ai/dossier).
 

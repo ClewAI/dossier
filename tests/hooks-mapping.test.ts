@@ -2,18 +2,20 @@ import { describe, expect, it } from 'vitest';
 import type { HookDefinition } from '../src/config/schema.js';
 import {
   buildClaudeHooksBlock,
+  buildCodexHooksJson,
   buildCursorHooksJson,
   hookAppliesToAgent,
 } from '../src/hooks/mapping.js';
 
 describe('hookAppliesToAgent', () => {
-  it('applies to both when agents omitted', () => {
+  it('applies to all hook-capable agents when agents omitted', () => {
     const h: HookDefinition = {
       command: 'x',
       events: ['stop'],
     };
     expect(hookAppliesToAgent(h, 'CURSOR')).toBe(true);
     expect(hookAppliesToAgent(h, 'CLAUDE_CODE')).toBe(true);
+    expect(hookAppliesToAgent(h, 'OPENAI_CODEX')).toBe(true);
   });
 
   it('respects agents filter', () => {
@@ -24,6 +26,7 @@ describe('hookAppliesToAgent', () => {
     };
     expect(hookAppliesToAgent(h, 'CURSOR')).toBe(true);
     expect(hookAppliesToAgent(h, 'CLAUDE_CODE')).toBe(false);
+    expect(hookAppliesToAgent(h, 'OPENAI_CODEX')).toBe(false);
   });
 });
 
@@ -70,5 +73,41 @@ describe('buildClaudeHooksBlock', () => {
       },
     ]);
     expect(out).toEqual({});
+  });
+});
+
+describe('buildCodexHooksJson', () => {
+  it('maps after_file_edit to PostToolUse with Edit|Write matcher', () => {
+    const out = buildCodexHooksJson([
+      { command: '/bin/echo', events: ['after_file_edit'] },
+    ]);
+    expect(out.hooks.PostToolUse).toEqual([
+      {
+        matcher: 'Edit|Write',
+        hooks: [{ type: 'command', command: '/bin/echo' }],
+      },
+    ]);
+  });
+
+  it('maps before_submit_prompt to UserPromptSubmit without matcher', () => {
+    const out = buildCodexHooksJson([
+      { command: '/bin/true', events: ['before_submit_prompt'] },
+    ]);
+    expect(out.hooks.UserPromptSubmit).toEqual([
+      {
+        hooks: [{ type: 'command', command: '/bin/true' }],
+      },
+    ]);
+  });
+
+  it('skips hooks not scoped to Codex', () => {
+    const out = buildCodexHooksJson([
+      {
+        command: 'cursor-only',
+        events: ['stop'],
+        agents: ['CURSOR', 'CLAUDE_CODE'],
+      },
+    ]);
+    expect(out.hooks).toEqual({});
   });
 });

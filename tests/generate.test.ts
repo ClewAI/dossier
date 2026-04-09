@@ -77,4 +77,34 @@ describe('generate', () => {
     ).toBe(true);
     expect(fs.existsSync(path.join(tmp, '.cursor', 'hooks.json'))).toBe(false);
   });
+
+  it('writes Codex-oriented AGENTS.md with library rules and skips default thin AGENTS overwrite', () => {
+    writeConfiguration(tmp, baseConfig);
+    generate(tmp, baseConfig, 'codex');
+
+    const agentsMd = fs.readFileSync(path.join(tmp, 'AGENTS.md'), 'utf8');
+    expect(agentsMd).toContain('Bundled library rules');
+    expect(agentsMd).toContain('React components, hooks, and accessibility');
+    expect(agentsMd).toContain('One custom global note.');
+    expect(fs.existsSync(path.join(tmp, '.github', 'copilot-instructions.md'))).toBe(
+      false,
+    );
+  });
+
+  it('writes Codex .agents/skills and .codex/hooks.json when hooks apply', () => {
+    writeConfiguration(tmp, baseConfig);
+    generate(tmp, baseConfig, 'codex');
+
+    expect(
+      fs.existsSync(
+        path.join(tmp, '.agents', 'skills', 'react-patterns-skill', 'SKILL.md'),
+      ),
+    ).toBe(true);
+    const hooksPath = path.join(tmp, '.codex', 'hooks.json');
+    expect(fs.existsSync(hooksPath)).toBe(true);
+    const hooks = JSON.parse(fs.readFileSync(hooksPath, 'utf8')) as {
+      hooks: { PostToolUse?: { matcher: string; hooks: unknown[] }[] };
+    };
+    expect(hooks.hooks.PostToolUse?.[0].matcher).toBe('Edit|Write');
+  });
 });

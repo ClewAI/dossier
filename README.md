@@ -1,6 +1,6 @@
 # `dossier`
 
-`dossier` is a CLI utility that helps you with setting up your repository for different coding agents. It does serve two functions: first, it will help you setup the different components that you need to get the most out of your coding agent. This is especially helpful if you haven't used a coding agent before if you want to explore a new one that you haven't configured yet. Second, `dossier` creates a agent-agnostic layer (placed in the `.dossier/` directory) from which the configuration for the different agents can be created. This means that you don't have to update the rules for Cursor, Claude Code and Copilot yourself (we admit, you have to add yet another AI-agent directory, sorry for that).
+`dossier` is a CLI utility that helps you with setting up your repository for different coding agents. It does serve two functions: first, it will help you setup the different components that you need to get the most out of your coding agent. This is especially helpful if you haven't used a coding agent before if you want to explore a new one that you haven't configured yet. Second, `dossier` creates a agent-agnostic layer (placed in the `.dossier/` directory) from which the configuration for the different agents can be created. This means that you don't have to update the rules for Cursor, Claude Code, Copilot, and OpenAI Codex yourself (we admit, you have to add yet another AI-agent directory, sorry for that).
 
 ## Installation
 
@@ -27,7 +27,7 @@ dossier update
 To generate the setup for another agent, use the following command:
 
 ```bash
-dossier generate copilot
+dossier generate codex
 ```
 
 ## Supported agents & features
@@ -36,12 +36,14 @@ dossier generate copilot
 ❌ Not supported by `dossier`
 ✖️ Not support by agent
 
-|          | Cursor | Claude Code | Copilot |
-| ---      | ---    | ---         | ---     |
-| Skills   | ✖️     | ✅          | ✖️      |
-| Hooks    | ✅     | ✅          | ✖️      |
-| Commands | ✖️     | ✅          | ✖️      |
-| Agent.md | ✅     | ✅          | ✅      |
+|          | Cursor | Claude Code | Copilot | Codex |
+| ---      | ---    | ---         | ---     | ---   |
+| Skills   | ✖️     | ✅          | ✖️      | ✅    |
+| Hooks    | ✅     | ✅          | ✖️      | ✅¹   |
+| Commands | ✖️     | ✅          | ✖️      | ✖️    |
+| Agent.md | ✅     | ✅          | ✅      | ✅    |
+
+¹ Codex hooks are experimental; enable them with `[features] codex_hooks = true` in `.codex/config.toml` (see [OpenAI Codex hooks](https://developers.openai.com/codex/hooks)).
 
 ## Library
 

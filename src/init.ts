@@ -23,6 +23,8 @@ const AGENT_ALIASES = {
   'claude-code': 'CLAUDE_CODE',
   copilot: 'GITHUB_COPILOT',
   github: 'GITHUB_COPILOT',
+  codex: 'OPENAI_CODEX',
+  openai: 'OPENAI_CODEX',
 } as const satisfies Record<string, Agent>;
 
 function parseAgents(line: string): Agent[] {
@@ -113,7 +115,7 @@ export async function runInit(cwd: string): Promise<void> {
     : hint.frameworks;
 
   const agentLine = await rl.question(
-    'Agents to enable: cursor, claude, copilot (comma-separated) [cursor]: ',
+    'Agents to enable: cursor, claude, copilot, codex (comma-separated) [cursor]: ',
   );
   let agents = parseAgents(agentLine.trim() || 'cursor');
   if (agents.length === 0) agents = ['CURSOR'];
@@ -156,6 +158,6 @@ export async function runInit(cwd: string): Promise<void> {
 
   console.log(`Wrote ${configPath}`);
   console.log(
-    'Run `dossier generate <cursor|claude|copilot>` to emit agent-specific files.',
+    'Run `dossier generate <cursor|claude|copilot|codex>` to emit agent-specific files.',
   );
 }

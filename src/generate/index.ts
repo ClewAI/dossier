@@ -6,6 +6,7 @@ import { resolveLibraryRoot } from '../paths.js';
 import { generateCursor } from './cursor.js';
 import { generateClaude } from './claude.js';
 import { generateCopilot } from './copilot.js';
+import { generateCodex } from './codex.js';
 import { buildAgentsMd } from './agents-md.js';
 
 export type { GenerateTarget } from '../constants.js';
@@ -27,10 +28,15 @@ export function generate(
     case 'copilot':
       generateCopilot(cwd, config, libraryRoot);
       break;
+    case 'codex':
+      generateCodex(cwd, config, libraryRoot);
+      break;
   }
-  fs.writeFileSync(
-    path.join(cwd, 'AGENTS.md'),
-    buildAgentsMd(config),
-    'utf8',
-  );
+  if (target !== 'codex') {
+    fs.writeFileSync(
+      path.join(cwd, 'AGENTS.md'),
+      buildAgentsMd(config),
+      'utf8',
+    );
+  }
 }

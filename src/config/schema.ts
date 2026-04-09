@@ -1,6 +1,11 @@
 import { z } from 'zod';
 
-export const AgentSchema = z.enum(['CURSOR', 'CLAUDE_CODE', 'GITHUB_COPILOT']);
+export const AgentSchema = z.enum([
+  'CURSOR',
+  'CLAUDE_CODE',
+  'GITHUB_COPILOT',
+  'OPENAI_CODEX',
+]);
 export type Agent = z.infer<typeof AgentSchema>;
 
 export const LanguageSchema = z.enum(['javascript', 'typescript', 'python']);
@@ -47,7 +52,11 @@ export const DirectoryConfigSchema = z.object({
 });
 export type DirectoryConfig = z.infer<typeof DirectoryConfigSchema>;
 
-export const HookAgentSchema = z.enum(['CURSOR', 'CLAUDE_CODE']);
+export const HookAgentSchema = z.enum([
+  'CURSOR',
+  'CLAUDE_CODE',
+  'OPENAI_CODEX',
+]);
 
 export const HookDefinitionSchema = z.object({
   id: z.string().optional(),

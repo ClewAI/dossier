@@ -29,7 +29,8 @@ flowchart LR
     CUR[".cursor/rules, hooks"]
     CLA["Claude Code files"]
     COP["Copilot files"]
-    AG["AGENTS.md"]
+    COD["Codex AGENTS.md"]
+    AG["AGENTS.md (short)"]
   end
   INIT --> CFG
   INIT --> LIB
@@ -40,12 +41,13 @@ flowchart LR
   GEN --> CUR
   GEN --> CLA
   GEN --> COP
+  GEN --> COD
   GEN --> AG
 ```
 
 - **`init`** writes `config.json` and copies the **bundled** `library/` from the installed package into **`.dossier/library/`**.
 - **`update`** refreshes only `.dossier/library/` from the package; it does not rewrite config.
-- **`generate`** reads config, chooses a **library root** (see below), merges rules from the manifest with your language/framework selections, and writes agent-specific artifacts plus root **`AGENTS.md`**.
+- **`generate`** reads config, chooses a **library root** (see below), merges rules from the manifest with your language/framework selections, and writes agent-specific artifacts. Root **`AGENTS.md`** is a short summary for Cursor, Claude, and Copilot targets, and a Codex-oriented document (bundled rules inlined) for the `codex` target. The last `generate` invocation for a given repo wins if you mix targets.
 
 ## Directory layout
 
@@ -53,13 +55,14 @@ flowchart LR
 | --- | --- |
 | `.dossier/config.json` | Source of truth: languages, frameworks per directory, global and scoped `customRules`, `hooks`, enabled agents, `supportDocs` |
 | `.dossier/library/` | Synced copy of bundled rules (`library/rules/…`), skills (`library/skills/…`), and `manifest.json` — updated by `init` and `update` |
-| `AGENTS.md` | Regenerated on every `generate`; short human/agent-facing summary and rules excerpt |
+| `AGENTS.md` | Regenerated on every `generate`: short summary for Cursor / Claude / Copilot targets, or full bundled rules + config context for the `codex` target |
 
 Agent-specific outputs (under the repo root):
 
 - **Cursor** — `.cursor/rules/*.mdc` (library rules plus merged custom rules); optional `.cursor/hooks.json` when `hooks` are defined in config.
 - **Claude Code** — `.claude/skills/<skill-id>/SKILL.md` for bundled and custom skills; hook definitions merged into `.claude/settings.json` under a `hooks` object.
 - **GitHub Copilot** — `.github/copilot-instructions.md` (global rules and custom text); directory-scoped custom rules as `.github/instructions/dossier-dir-*.md` with `applyTo` front matter.
+- **OpenAI Codex** — Root `AGENTS.md` with library rules and dossier context; `.agents/skills/*/SKILL.md` for bundled and custom skills; merged `.codex/hooks.json` when hooks target Codex; subdirectory `AGENTS.md` when a non-root `directories` entry has `customRules`.
 
 ## Library resolution
 
@@ -87,6 +90,6 @@ The canonical TypeScript/Zod definitions ship in the package for programmatic va
 
 ## Design goals
 
-1. **Agent-agnostic source** — Prefer editing `.dossier/config.json` and curating the library over hand-editing three vendor formats.
+1. **Agent-agnostic source** — Prefer editing `.dossier/config.json` and curating the library over hand-editing multiple vendor formats.
 2. **Reproducible upgrades** — `update` replaces `.dossier/library/` with the package version you have installed; diff or pin versions via your package manager.
 3. **Explicit generation** — `generate <agent>` makes it obvious which outputs changed; `AGENTS.md` gives a portable, repo-visible summary for any tool that reads it.

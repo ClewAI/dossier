@@ -2,20 +2,23 @@ import type { Configuration } from '../config/schema.js';
 import { isRootDirectoryKey } from './shared.js';
 import { customRuleToText, mergeInstructionBodies } from './merge-rules.js';
 
-export function buildAgentsMd(config: Configuration): string {
-  const sections: string[] = [];
-
-  sections.push(`# Agent instructions\n`);
-  sections.push(
+export function agentsMdPreamble(config: Configuration): string[] {
+  const sections: string[] = [
+    `# Agent instructions\n`,
     `This repository uses [dossier](https://www.npmjs.com/package/@clew-ai/dossier) for AI-agent configuration. Source of truth: \`.dossier/config.json\`.\n`,
-  );
-
+  ];
   if (config.supportDocs) {
     sections.push(
       `Maintain relevant documentation under \`docs/\` when behavior or architecture changes.\n`,
     );
   }
+  return sections;
+}
 
+export function agentsMdCustomAndDirectories(
+  config: Configuration,
+): string[] {
+  const sections: string[] = [];
   const globalRules = config.customRules.map(customRuleToText);
   if (globalRules.length > 0) {
     sections.push(`## Repository-wide rules\n`);
@@ -39,6 +42,13 @@ export function buildAgentsMd(config: Configuration): string {
       }
     }
   }
+  return sections;
+}
 
-  return `${sections.join('\n')}\n`;
+/** Short root summary for any agent (Cursor, Claude, Copilot, etc.). */
+export function buildAgentsMd(config: Configuration): string {
+  return `${[
+    ...agentsMdPreamble(config),
+    ...agentsMdCustomAndDirectories(config),
+  ].join('\n')}\n`;
 }

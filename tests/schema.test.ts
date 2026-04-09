@@ -36,12 +36,34 @@ describe('ConfigurationSchema', () => {
     expect(r.success).toBe(true);
   });
 
+  it('accepts OPENAI_CODEX in hook agents filter', () => {
+    const r = safeParseConfiguration({
+      ...minimalValid,
+      hooks: [
+        {
+          command: '/bin/true',
+          events: ['stop'],
+          agents: ['OPENAI_CODEX'],
+        },
+      ],
+    });
+    expect(r.success).toBe(true);
+  });
+
   it('rejects invalid hook events', () => {
     const r = safeParseConfiguration({
       ...minimalValid,
       hooks: [{ command: 'x', events: ['not_a_real_event'] }],
     });
     expect(r.success).toBe(false);
+  });
+
+  it('accepts OPENAI_CODEX in agents', () => {
+    const r = safeParseConfiguration({
+      ...minimalValid,
+      agents: ['OPENAI_CODEX'],
+    });
+    expect(r.success).toBe(true);
   });
 
   it('rejects empty agents array', () => {

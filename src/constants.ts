@@ -1,5 +1,10 @@
 /** CLI `generate` targets (aligned with README). */
-export const GENERATE_TARGETS = ['cursor', 'claude', 'copilot'] as const;
+export const GENERATE_TARGETS = [
+  'cursor',
+  'claude',
+  'copilot',
+  'codex',
+] as const;
 
 export type GenerateTarget = (typeof GENERATE_TARGETS)[number];
 
