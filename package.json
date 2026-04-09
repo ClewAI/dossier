@@ -24,7 +24,9 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
-    "prepublishOnly": "npm run build"
+    "ci": "yarn typecheck && yarn test && yarn build",
+    "prepack": "yarn build",
+    "prepublishOnly": "yarn typecheck && yarn test"
   },
   "engines": {
     "node": ">=20"
@@ -44,6 +46,10 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/clew-ai/dossier.git"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   },
   "keywords": [
     "cli",
